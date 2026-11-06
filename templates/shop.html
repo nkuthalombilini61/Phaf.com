@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% from "_svg.html" import card %}
+{% block content %}
+<section class="pg"><h2 class="title brush">MERCHANDISE</h2>
+  <div class="filters"><a class="{{ '' if cat else 'on' }}" href="{{ url_for('shop') }}">ALL</a>
+  {% for k, n in cats %}<a class="{{ 'on' if cat == k }}" href="{{ url_for('shop', cat=k) }}">{{ n.upper() }}</a>{% endfor %}</div>
+  {% if q %}<p class="c">Results for “{{ q }}”</p>{% endif %}
+  <div class="grid">{% for p in products %}{{ card(p) }}{% else %}<p>No products found.</p>{% endfor %}</div></section>
+{% endblock %}

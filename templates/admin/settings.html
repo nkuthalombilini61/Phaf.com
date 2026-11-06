@@ -1,0 +1,9 @@
+{% extends "admin/base.html" %}
+{% block admin %}
+<h3 class="brush">Settings</h3>
+<form method="post" class="f">
+<label>WhatsApp number (country code, no +)<input name="whatsapp" value="{{ cfg.whatsapp }}"></label><label>Store email<input name="email" value="{{ cfg.email }}"></label>
+<label>Card payment link (PayFast / Yoco / Ozow)<input name="pay_url" value="{{ cfg.pay_url }}"></label><label>Shipping fee in Rand (0 = free)<input name="shipping" type="number" step="0.01" value="{{ cfg.shipping }}"></label>
+<label class="w">Bank details for EFT<textarea name="bank" rows="4">{{ cfg.bank }}</textarea></label>
+<label class="w"><input type="checkbox" name="cod" {{ 'checked' if cfg.cod == '1' }}> Allow cash on delivery</label><button class="btn w">SAVE SETTINGS</button></form>
+{% endblock %}

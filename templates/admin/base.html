@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="pg adm"><h2 class="title brush">STORE ADMIN</h2>
+<div class="filters"><a href="{{ url_for('admin_orders') }}">ORDERS</a><a href="{{ url_for('admin_products') }}">PRODUCTS</a><a href="{{ url_for('admin_tracks') }}">MUSIC</a><a href="{{ url_for('admin_settings') }}">SETTINGS</a><a href="{{ url_for('logout') }}">LOG OUT</a></div>
+{% block admin %}{% endblock %}</section>
+{% endblock %}

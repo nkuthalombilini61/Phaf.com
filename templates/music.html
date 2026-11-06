@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% from "_svg.html" import skull %}
+{% block content %}
+<section class="pg"><h2 class="title brush">MUSIC PRODUCT</h2>
+<div class="mus"><div class="vin" id="vin"><div class="disc"></div><div class="cover">{{ skull() }}</div></div>
+<div><h3 class="brush" style="font-size:34px;margin:0">Pain Has A Face</h3><p>The Debut Album · Stream. Download. Feel.</p>
+  <div class="ctl"><button class="play" id="play" aria-label="Play">▶</button><span id="time">0:00</span><div class="bar"><i id="prog"></i></div></div>
+  <ol id="tracks">{% for t in tracks %}<li data-src="{{ url_for('static', filename='uploads/' ~ t.file) if t.file else '' }}" data-d="{{ t.duration }}"><span>{{ loop.index }}. {{ t.title }}</span><span>{% if t.file %}<a href="{{ url_for('static', filename='uploads/' ~ t.file) }}" download title="Download">⬇</a>{% endif %}</span></li>{% endfor %}</ol>
+  <p class="note" id="note"></p></div></div></section>
+<script src="{{ url_for('static', filename='player.js') }}"></script>
+{% endblock %}

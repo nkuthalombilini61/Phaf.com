@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}PHAF – Pain Has A Face{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <a class="logo brush" href="{{ url_for('index') }}">PHAF</a>
+  <nav id="nav">
+    <a href="{{ url_for('index') }}">HOME</a><a href="{{ url_for('shop') }}">SHOP</a><a href="{{ url_for('music') }}">MUSIC</a>
+    <a href="{{ url_for('about') }}">ABOUT</a><a href="{{ url_for('contact') }}">CONTACT</a>
+  </nav>
+  <div class="ic">
+    <form action="{{ url_for('shop') }}" class="sf"><input name="q" placeholder="Search" aria-label="Search products"></form>
+    {% if is_admin %}<a href="{{ url_for('admin_orders') }}" title="Admin">⚙</a>{% endif %}
+    <a href="{{ url_for('cart') }}" class="cartb" aria-label="Cart">🛒<span>{{ cart_count }}</span></a>
+    <button onclick="document.getElementById('nav').classList.toggle('open')" aria-label="Menu">☰</button>
+  </div>
+</header>
+{% with msgs = get_flashed_messages(with_categories=true) %}{% for c, m in msgs %}<div class="flash {{ c }}">{{ m }}</div>{% endfor %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer>
+  <div class="fg">
+    <div><div class="brush" style="font-size:54px;line-height:1">PHAF</div><div style="letter-spacing:2px;font-size:13px">PAIN HAS A FACE</div></div>
+    <div><h5>QUICK LINKS</h5><a href="{{ url_for('index') }}">Home</a><a href="{{ url_for('shop') }}">Shop</a><a href="{{ url_for('music') }}">Music</a><a href="{{ url_for('about') }}">About</a><a href="{{ url_for('contact') }}">Contact</a></div>
+    <div><h5>SHOP</h5>{% for k, n in cats %}<a href="{{ url_for('shop', cat=k) }}">{{ n }}</a>{% endfor %}</div>
+    <div><h5>SUPPORT</h5><a href="{{ url_for('contact') }}">FAQs</a><a href="{{ url_for('contact') }}">Shipping</a><a href="{{ url_for('contact') }}">Returns</a>{% if not is_admin %}<a href="{{ url_for('login') }}">Admin</a>{% else %}<a href="{{ url_for('logout') }}">Log out</a>{% endif %}</div>
+  </div>
+  <div class="copy">© 2026 PHAF. All Rights Reserved. | Pain Has A Face.</div>
+</footer>
+</body>
+</html>

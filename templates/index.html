@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% from "_svg.html" import card, art, skull %}
+{% block content %}
+<section class="splash"><h1 class="brush">PHAF</h1><h2>PAIN HAS A FACE</h2>
+  <div class="btns"><a class="btn" href="{{ url_for('shop') }}">SHOP NOW</a><a class="btn o" href="{{ url_for('music') }}">LISTEN TO MUSIC</a></div></section>
+<section class="pg"><h2 class="title brush">MERCHANDISE</h2>
+  <div class="grid">{% for p in tees %}{{ card(p) }}{% endfor %}</div>
+  <p class="c"><a class="btn o" href="{{ url_for('shop') }}">VIEW ALL</a></p></section>
+<section class="mp">
+  <div><h2 class="brush">MUSIC<br>PRODUCT</h2><p>Stream. Download. Feel.</p></div>
+  <div><div class="img">{% if tees %}{{ art(tees[7] if tees|length > 7 else tees[0]) }}{% endif %}</div><h4>Album tee</h4><p>Wear the debut album.</p></div>
+  <div><h4 style="font-size:22px">Pain Has A Face</h4><p>The Debut Album</p><p><a class="btn" href="{{ url_for('music') }}">LISTEN NOW</a></p></div>
+  <div class="alb">{{ skull() }}</div>
+</section>
+{% endblock %}

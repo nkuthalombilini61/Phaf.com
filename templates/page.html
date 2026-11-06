@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="pg narrow c"><h2 class="title brush">{{ title }}</h2><p style="font-size:18px;line-height:1.6">{{ body }}</p>
+{% if contact %}<p><a class="btn" target="_blank" rel="noopener" href="https://wa.me/{{ cfg.whatsapp }}">WHATSAPP US</a> &nbsp; <a class="btn o" href="mailto:{{ cfg.email }}">EMAIL US</a></p>{% endif %}</section>
+{% endblock %}

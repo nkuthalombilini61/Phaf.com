@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="pg narrow"><h2 class="title brush">CHECKOUT</h2>
+<form method="post" class="f">
+  <input name="name" placeholder="Full name *" value="{{ request.form.name }}" required><input name="phone" placeholder="Phone *" value="{{ request.form.phone }}" required>
+  <input name="email" type="email" class="w" placeholder="Email (optional)" value="{{ request.form.email }}"><input name="address" class="w" placeholder="Street address *" value="{{ request.form.address }}" required>
+  <input name="city" placeholder="City / suburb *" value="{{ request.form.city }}" required><input name="code" placeholder="Postal code" value="{{ request.form.code }}">
+  <textarea name="note" class="w" rows="2" placeholder="Notes (optional)">{{ request.form.note }}</textarea>
+  <div class="w"><b>Payment</b>{% for k, n in pays %}<label class="rad"><input type="radio" name="pay" value="{{ k }}" {{ 'checked' if loop.first }}> {{ n }}</label>{% endfor %}</div>
+  <div class="w">{% for l in lines %}<div class="sumr"><span>{{ l.qty }} × {{ l.p.name }}{% if l.size %} ({{ l.size }}){% endif %}</span><span>{{ money(l.sub) }}</span></div>{% endfor %}
+    <div class="sumr"><span>Shipping</span><span>{{ money(ship) if ship else 'FREE' }}</span></div><div class="sumr"><b>Total</b><b>{{ money(total) }}</b></div></div>
+  <button class="btn w">PLACE ORDER</button>
+</form></section>
+{% endblock %}

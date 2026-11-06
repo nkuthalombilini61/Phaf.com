@@ -1,0 +1,38 @@
+{% macro art(p) %}
+{%- if p.image -%}<img src="{{ url_for('static', filename='uploads/' ~ p.image) }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover">
+{%- else -%}
+<svg viewBox="0 0 100 100" role="img" aria-label="{{ p.name }}">
+{%- if p.cat == 'tee' -%}
+<path d="M30 14l-22 12 8 16 10-5v42h48V37l10 5 8-16-22-12c-4 8-10 11-20 11S34 22 30 14z" fill="{{ p.color }}" stroke="#0002"/>
+{%- if p.graphic == 'sun' -%}<circle cx="50" cy="46" r="9" fill="#e8622c"/><path d="M50 30v-4M50 62v4M34 46h-4M66 46h4M39 35l-3-3M61 57l3 3M61 35l3-3M39 57l-3 3" stroke="#e8622c" stroke-width="2"/>
+{%- elif p.graphic == 'dot' -%}<circle cx="50" cy="48" r="12" fill="#ee6a2b"/>
+{%- elif p.graphic == 'art' -%}<path d="M32 32h14v36H32z" fill="#3b6ea5"/><path d="M46 32h22v18H46z" fill="#e9b872"/><circle cx="56" cy="58" r="8" fill="#d6553a"/>
+{%- elif p.graphic == 'txt' -%}<g fill="{{ p.ink }}"><rect x="34" y="44" width="32" height="4"/><rect x="38" y="52" width="24" height="4"/></g>
+{%- elif p.graphic == 'txt2' -%}<g fill="{{ p.ink }}" font-size="11" font-weight="700" text-anchor="middle" font-family="Arial"><text x="50" y="50">NO WAY</text><text x="50" y="62">BACK</text></g>
+{%- elif p.graphic == 'badge' -%}<rect x="34" y="40" width="32" height="20" rx="10" fill="#e8a23a"/><circle cx="50" cy="50" r="6" fill="#d6553a"/>
+{%- elif p.graphic == 'script' -%}<text x="50" y="56" text-anchor="middle" font-size="15" fill="{{ p.ink }}" class="brush">Pain</text>
+{%- else -%}<text x="50" y="56" text-anchor="middle" font-size="14" fill="{{ p.ink }}" class="brush">PHAF</text>{%- endif -%}
+{%- elif p.cat == 'hood' -%}
+<path d="M32 12c10-6 26-6 36 0l22 16-4 40-12-4v22H30V64l-12 4-4-40z" fill="{{ p.color }}"/><path d="M36 14c8 12 20 12 28 0" fill="none" stroke="#0004" stroke-width="3"/><text x="50" y="56" text-anchor="middle" font-size="13" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- elif p.cat == 'cap' -%}
+<path d="M20 62c0-26 14-38 32-38s28 14 28 38z" fill="{{ p.color }}"/><path d="M60 62h34c0 6-14 10-34 8z" fill="#0006"/><text x="48" y="54" text-anchor="middle" font-size="12" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- elif p.cat == 'bucket' -%}
+<path d="M30 28h40l6 26H24z" fill="{{ p.color }}"/><ellipse cx="50" cy="58" rx="42" ry="14" fill="{{ p.color }}" stroke="#0004"/><text x="50" y="48" text-anchor="middle" font-size="12" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- elif p.cat == 'shorts' -%}
+<path d="M24 18h52l8 62H56L50 46l-6 34H16z" fill="{{ p.color }}"/><path d="M24 18h52v8H24z" fill="#0004"/><text x="28" y="72" font-size="10" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- elif p.cat == 'socks' -%}
+<path d="M24 12h22v50l14 10c4 8-2 16-12 16H28c-8 0-8-8-4-12z" fill="{{ p.color }}" stroke="#0003"/><path d="M54 18h22v44l14 10c4 8-2 16-12 16H58c-8 0-8-8-4-12z" fill="{{ p.color }}" stroke="#0003"/><text x="35" y="36" text-anchor="middle" font-size="8" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- else -%}
+<path d="M36 22c0-14 28-14 28 0" fill="none" stroke="{{ p.color }}" stroke-width="5"/><rect x="24" y="22" width="52" height="68" rx="14" fill="{{ p.color }}"/><rect x="32" y="62" width="36" height="20" rx="4" fill="#0004"/><text x="50" y="48" text-anchor="middle" font-size="12" fill="{{ p.ink }}" class="brush">PHAF</text>
+{%- endif -%}
+</svg>
+{%- endif -%}
+{% endmacro %}
+
+{% macro card(p) %}
+<a class="p" href="{{ url_for('product', pid=p.id) }}"><div class="img">{{ art(p) }}</div><h4>{{ p.name }}</h4><div class="pr">{{ money(p.price) }}{% if not p.stock %} · Sold out{% endif %}</div></a>
+{% endmacro %}
+
+{% macro skull() %}
+<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Pain Has A Face album cover"><rect width="100" height="100" fill="#ddd6c8"/><path d="M8 22c22-20 62-20 84 0-8 6-12 22-8 40-12 8-56 8-68 0 4-18 0-34-8-40z" fill="#1d2230"/><ellipse cx="50" cy="52" rx="22" ry="26" fill="#ece6dc"/><path d="M26 34h48v9H26z" fill="#c62828"/><circle cx="41" cy="52" r="6" fill="#222"/><circle cx="59" cy="52" r="6" fill="#222"/><circle cx="41" cy="52" r="2" fill="#c62828"/><circle cx="59" cy="52" r="2" fill="#c62828"/><path d="M47 62l3 5 3-5z" fill="#333"/><path d="M38 72h24v8H38z" fill="#ece6dc" stroke="#333"/><path d="M42 72v8M46 72v8M50 72v8M54 72v8M58 72v8" stroke="#333"/></svg>
+{% endmacro %}

@@ -1,0 +1,8 @@
+{% extends "admin/base.html" %}
+{% block admin %}
+<h3 class="brush">Album tracks</h3><p>Upload an audio file (mp3, m4a, wav, ogg) for each track. Customers can play and download them on the Music page.</p>
+<form method="post" action="{{ url_for('track_save') }}" enctype="multipart/form-data" class="row t"><input name="title" placeholder="New track title" required><input name="duration" type="number" placeholder="Seconds" value="180"><input type="file" name="audio" accept="audio/*,video/mp4"><button class="btn">ADD</button></form>
+{% for t in tracks %}<form method="post" action="{{ url_for('track_save') }}" enctype="multipart/form-data" class="row t"><input type="hidden" name="id" value="{{ t.id }}">
+<input name="title" value="{{ t.title }}" required><input name="duration" type="number" value="{{ t.duration }}"><span>{{ '✔ audio added' if t.file else 'no audio yet' }}<input type="file" name="audio" accept="audio/*,video/mp4"></span>
+<span><button class="btn o">SAVE</button> <button class="btn o" formaction="{{ url_for('track_delete', tid=t.id) }}" onclick="return confirm('Delete this track?')">DELETE</button></span></form>{% endfor %}
+{% endblock %}

@@ -1,0 +1,6 @@
+store.db
+static/uploads/*
+!static/uploads/.gitkeep
+.venv/
+__pycache__/
+.idea/

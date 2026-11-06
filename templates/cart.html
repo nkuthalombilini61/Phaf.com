@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% from "_svg.html" import art %}
+{% block content %}
+<section class="pg narrow"><h2 class="title brush">YOUR CART</h2>
+{% for l in lines %}<div class="line"><div class="th">{{ art(l.p) }}</div><div class="grow"><b>{{ l.p.name }}</b>{% if l.size %} ({{ l.size }}){% endif %}<br>{{ money(l.p.price) }}</div>
+  <form method="post" action="{{ url_for('cart_update') }}" class="qty"><input type="hidden" name="key" value="{{ l.key }}">
+    <button name="op" value="dec">−</button> {{ l.qty }} <button name="op" value="inc">+</button> <button name="op" value="del" title="Remove">✕</button></form>
+  <b>{{ money(l.sub) }}</b></div>
+{% else %}<p class="c">Your cart is empty.</p><p class="c"><a class="btn" href="{{ url_for('shop') }}">START SHOPPING</a></p>{% endfor %}
+{% if lines %}<div class="line"><span class="grow">Shipping</span><b>{{ money(ship) if ship else 'FREE' }}</b></div>
+<div class="line"><b class="grow">Total</b><b>{{ money(lines|sum(attribute='sub') + ship) }}</b></div><p class="c"><a class="btn" href="{{ url_for('checkout') }}">CHECKOUT</a></p>{% endif %}</section>
+{% endblock %}

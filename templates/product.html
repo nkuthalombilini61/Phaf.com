@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% from "_svg.html" import card, art %}
+{% block title %}{{ p.name }} – PHAF{% endblock %}
+{% block content %}
+<section class="pg"><div class="det">
+  <div class="img big">{{ art(p) }}</div>
+  <div><a href="{{ url_for('shop', cat=p.cat) }}" class="back">← Back</a><h2 class="brush">{{ p.name }}</h2><div class="price">{{ money(p.price) }}</div>
+    <p>Premium quality from the PHAF collection. Wear the movement. {{ 'Free shipping nationwide.' if not ship }}</p>
+    {% if p.stock %}<form method="post" action="{{ url_for('cart_add') }}"><input type="hidden" name="id" value="{{ p.id }}">
+      {% if p.cat in SIZED %}<div class="sz">{% for s in ['S','M','L','XL'] %}<label><input type="radio" name="size" value="{{ s }}" {{ 'checked' if s == 'M' }}><span>{{ s }}</span></label>{% endfor %}</div>{% endif %}
+      <button class="btn">ADD TO CART</button></form>{% else %}<b>Sold out</b>{% endif %}</div></div>
+  <h2 class="title brush" style="margin-top:50px;font-size:34px">YOU MAY ALSO LIKE</h2><div class="grid">{% for m in more %}{{ card(m) }}{% endfor %}</div></section>
+{% endblock %}

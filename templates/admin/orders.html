@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% block admin %}
+<h3 class="brush">Orders ({{ orders|length }})</h3>
+{% for o, items in orders %}<div class="box"><div class="sumr"><b>{{ o.ref }} · {{ o.created }}</b><b>{{ money(o.total) }}</b></div>
+<p>{{ o.name }} · {{ o.phone }}{% if o.email %} · {{ o.email }}{% endif %}<br>{{ o.address }}, {{ o.city }} {{ o.code }}{% if o.note %}<br><i>{{ o.note }}</i>{% endif %}</p>
+<ul>{% for i in items %}<li>{{ i.qty }} × {{ i.name }}{% if i.size %} ({{ i.size }}){% endif %}</li>{% endfor %}</ul>
+<form method="post" action="{{ url_for('order_status', oid=o.id) }}" class="inline">Payment: {{ o.pay }} ·
+<select name="status" onchange="this.form.submit()">{% for s in statuses %}<option {{ 'selected' if s == o.status }}>{{ s }}</option>{% endfor %}</select></form></div>
+{% else %}<p>No orders yet.</p>{% endfor %}
+{% endblock %}

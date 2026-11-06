@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="pg narrow"><h2 class="title brush">THANK YOU, {{ o.name.split()[0]|upper }}</h2>
+<p class="c"><b>Order {{ o.ref }}</b> · {{ money(o.total) }}</p>
+{% for i in items %}<div class="sumr"><span>{{ i.qty }} × {{ i.name }}{% if i.size %} ({{ i.size }}){% endif %}</span><span>{{ money(i.qty * i.price) }}</span></div>{% endfor %}
+{% if o.pay == 'eft' and cfg.bank %}<p>Pay by EFT using <b>{{ o.ref }}</b> as your reference:</p><pre>{{ cfg.bank }}</pre>
+{% elif o.pay == 'cod' %}<p>You will pay when your order is delivered.</p>
+{% elif o.pay == 'card' and cfg.pay_url %}<p class="c"><a class="btn" target="_blank" rel="noopener" href="{{ cfg.pay_url }}">PAY {{ money(o.total) }} BY CARD</a></p>{% endif %}
+<p>We have received your order and will contact you on <b>{{ o.phone }}</b>.</p>
+{% if cfg.whatsapp %}<p class="c"><a class="btn o" target="_blank" rel="noopener" href="https://wa.me/{{ cfg.whatsapp }}?text={{ wa }}">CHAT ON WHATSAPP</a></p>{% endif %}</section>
+{% endblock %}
